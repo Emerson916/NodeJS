@@ -5,9 +5,9 @@ class User extends Model{
     static init(connetion) {
         super.init(
             {
-                name: STRING,
-                email: STRING,
-                password: STRING,
+                name: DataTypes.STRING,
+                email: DataTypes.STRING,
+                password: DataTypes.STRING,
             },
             {
                 sequelize : connetion,
