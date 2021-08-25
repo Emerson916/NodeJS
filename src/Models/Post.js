@@ -18,7 +18,7 @@ class Post extends Model {
     }
 
     static associate(models) {
-
+        this.belongsTo(models.User)
     }
 }
 
