@@ -1,9 +1,12 @@
 'use strict';
 
 module.exports = {
+
+  //Cadastrando um usuário
+
   up: async (queryInterface, Sequelize) => {
     
-      await queryInterface.bulkInsert('Users', [{
+      await queryInterface.bulkInsert('users', [{
         name: 'Emerson',
         email: 'user@gmail.com',
         password: '123456',
@@ -15,7 +18,6 @@ module.exports = {
 
   down: async (queryInterface, Sequelize) => {
     
-      await queryInterface.bulkDelete('Users', null);
-     
+      await queryInterface.bulkDelete('users', null);
   }
 };

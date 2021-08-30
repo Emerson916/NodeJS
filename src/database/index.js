@@ -14,4 +14,5 @@ User.init(connection);
     /** Inicializando os relacionamentos */
 Post.associate(connection.models)
 User.associate(connection.models)
+
 module.exports = connection;
