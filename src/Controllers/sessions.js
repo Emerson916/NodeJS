@@ -1,13 +1,14 @@
 const User = require("../Models/User");
 const jwt = require("jsonwebtoken");
-const auth = require("../config/auth")
+const auth = require("../config/auth");
+const bcrypt = require("bcryptjs");
 
 module.exports ={
 
     //STORE - Método que vai ficar responsavel pela inserção
 
-    store(req,res){
-        async const { email, password } = req.body;
+    async store(req,res){
+        const { email, password } = req.body;
 
         // verificar se o úsuario existe
         // Estou preocurando um usuario onde o email é igual ao email cadastrado
@@ -19,14 +20,14 @@ module.exports ={
 
         // se a senha está correta
         // Se o usuário/email estiver errado, retornar um status de erro
-        if(!User || user.password !== password){ 
+        if(!User || !bcrypt.compareSync(password, user.password)){ 
             return res.status(403).send({ error: "Usuário e/ou senha inválidos"});
 
         }
         // gerar um token
         const token =
         jwt.sign({ userId : user.id},
-            "auth.secret",{
+            auth.secret,{
 
             expiresIn: "1h"
         });

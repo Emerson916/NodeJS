@@ -1,8 +1,9 @@
 const User = require("../Models/User");
 const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken")
 
 module.exports = {
-    async store(rerq, res) {
+    async store(req, res) {
          const { name, email, password } = req.body;
         //verificar se o usuário já existe 
         let user = await User.findOne({
@@ -28,6 +29,9 @@ module.exports = {
         }) 
 
         //gerar um token 
+        const token = jwt.sign({userId: user.id}, auth.secret,{
+            expiresIn: "1h"
+        });
 
         //retornar um usuário
 
@@ -36,7 +40,8 @@ module.exports = {
                 id: user.id,
                 name: user.name,
                 email: user.email
-            }
+            },
+            token
         });
     }
 }
